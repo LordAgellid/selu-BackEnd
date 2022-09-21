@@ -8,6 +8,27 @@ function getUtilisateursAll() {
     return knex('Utilisateurs');
 }
 
+function getUtilisateursByID(IdUtilisateurs) {
+    return knex('Utilisateurs')
+        .where('Utilisateurs.Id', IdUtilisateurs)
+        .select('*');
+}
+
+function insertUtilisateur(Prenom, NomDeFamille, Courriel, MotDePasse, DateDeCreation, DerniereConnexion, PhotoDeProfil, PhotoDeCouverture) {
+    return knex('Utilisateurs')
+        .insert({
+            Prenom,
+            NomDeFamille,
+            Courriel,
+            MotDePasse,
+            DateDeCreation,
+            DerniereConnexion,
+            PhotoDeProfil,
+            PhotoDeCouverture
+        }, ['Id'])
+        .returning('Id');
+}
+
 // Requete knex qui retourne les informations de connexion
 function connexion(identifiant, motDePasse) {
     return knex('Utilisateurs')
@@ -18,4 +39,6 @@ function connexion(identifiant, motDePasse) {
 module.exports = {
     getUtilisateursAll,
     connexion,
+    getUtilisateursByID,
+    insertUtilisateur,
 };

@@ -19,55 +19,53 @@ router.get('/', async (req, res) => {
     return res.status(200).json(resultat);
 });
 
-// router.get('/', async (req, res) => {
-//     chaineConnexion.connect().then(() => {
-//         //simple query
-//         chaineConnexion.request().query('select * from utilisateurs', (err, result) => {
-//               console.log(result.recordsets[0])
-//               return res.status(200).json(result.recordsets[0]);
-//           })
-//       })
+router.get('/:id', async (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
 
-// });
+    let resultat;
+    try {
+        resultat = await request.getUtilisateursByID(req.params.id);
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
 
-// router.get('/:id', async (req, res) => {
-//     chaineConnexion.connect().then(() => {
-//         //simple query
-//         chaineConnexion.request().query(`select * from utilisateurs where id = ${req.params.id}`, (err, result) => {
-//               console.log(result.recordsets[0])
-//               return res.status(200).json(result.recordsets[0]);
-//         })
-//       })
+    return res.status(200).json(resultat);
+});
 
-// });
+router.post('/inscription', async (req, res) => {
+    const { Prenom } = req.body;
+    const { NomDeFamille } = req.body;
+    const { Courriel } = req.body;
+    const { MotDePasse } = req.body;
+    console.log(Prenom, NomDeFamille, Courriel, MotDePasse);
 
-// router.post('/inscription', async (req, res) => {
-//     let bodyy = {...req.body}
-//     console.log(bodyy);
+    if (!Prenom || !NomDeFamille || !Courriel || !MotDePasse) {
+        return res.status(400).json('Le Prenom, NomDeFamille, Courriel, MotDePasse ne doivent pas etre vides');
+    }
 
-//     bodyy.MotDePasse = await bcrypt.hash(bodyy.MotDePasse, 8);
+    var MotDePasseHash = await bcrypt.hash(MotDePasse, 8);
 
-//     var now = new Date();
-//     var datenow = now.toISOString();
-//     var NULL = null
+    var now = new Date();
+    var datenow = now.toISOString();
 
-//     chaineConnexion.connect().then(() => {
-//             chaineConnexion.query(`insert into Utilisateurs values
-//         ('${bodyy.Prenom}',
-//         '${bodyy.NomDeFamille}',
-//         '${bodyy.Courriel}',
-//         '${bodyy.MotDePasse}',
-//         '${datenow}',
-//         '${datenow}',
-//         '${NULL}',
-//         '${NULL}')`, (err) => {
-//             if(err) {
-//                 return res.status(500).send("Le courriel existe deja");
-//             } else {
-//                 return res.status(200).send({Success: bodyy});
-//             }
-//         });
-//     })
-// });
+    try {
+        const id = await request.insertUtilisateur(
+            Prenom,
+            NomDeFamille,
+            Courriel,
+            MotDePasseHash,
+            datenow,
+            datenow,
+            null,
+            null
+        );
+        return res.status(200).json({
+            message: 'Personne ajoutée',
+            IdPersonne: id,
+        });
+    } catch (error) {
+        return res.status(500).json(error.message);
+    }
+});
 
 module.exports = router;
