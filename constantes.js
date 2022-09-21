@@ -1,19 +1,17 @@
-const sql = require('mssql/msnodesqlv8')
-
-const pool = new sql.ConnectionPool({
-    database: 'selu',
-    server: 'MSI\\SQLEXPRESS',
-    driver: 'msnodesqlv8',
-    options: {
-      trustedConnection: true
-    }
-  })
-
-pool.on('error', err => {
-  if (err)  console.log('sql errors', err);
-  if (!err) pool.connect();
-});
-pool.connect();
+const chaineConnexion = {
+  client: 'mssql',
+  connection: {
+      host: 'sv55.cmaisonneuve.qc.ca',
+      user: '5D1G01E05',
+      password: 'Selu355',
+      database: '5D1G01E05',
+      options: {
+          enableArithAbort: false,
+      },
+  },
+  pool: { min: 0, max: 7 },
+  useNullAsDefault: true,
+};
 
 // eslint-disable-next-line import/prefer-default-export
-module.exports = pool;
+module.exports = chaineConnexion;
