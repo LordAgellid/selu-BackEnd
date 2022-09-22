@@ -15,7 +15,54 @@ function connexion(identifiant, motDePasse) {
         .andWhere('MotDePasse', motDePasse);
 }
 
+// Requete qui verifie si un email existe
+function ifMailExists(courriel){
+    return knex('Utilisateurs').where({
+        Courriel: courriel
+      }).select('Id')
+}
+
+function findCodeVerification(courriel){
+    return knex('CodeVerification').where({
+        CourrielUtilisateur: courriel
+    }).select('Code')
+}
+
+function insertCodeVerification(code, courriel){
+    return knex('CodeVerification').insert({
+        Code: code, CourrielUtilisateur: courriel
+    })
+}
+
+function deleteCodeVerificationByMail(courriel){
+    return knex('CodeVerification').where({
+        CourrielUtilisateur: courriel
+    }).del()
+}
+
+function findMdp(courriel){
+    return knex('Utilisateurs').where({
+        Courriel: courriel 
+    }).select('MotDePasse')
+}
+
+function modifierMotDePasse(courriel, motDePasse){
+    return knex('Utilisateurs')
+            .where({
+                Courriel: courriel 
+            })
+            .update({
+                MotDePasse: motDePasse
+            })
+}
+
 module.exports = {
     getUtilisateursAll,
     connexion,
+    ifMailExists,
+    deleteCodeVerificationByMail,
+    insertCodeVerification,
+    findCodeVerification,
+    findMdp,
+    modifierMotDePasse
 };
