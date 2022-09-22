@@ -9,6 +9,8 @@ const nodemailer = require("nodemailer")
 
 const constantes = require("../constantes")
 
+const {sendMail} = require("../email")
+
 
 router.post('/envoyerMailConfirmationMdp', async (req, res)=>{
 
@@ -25,33 +27,13 @@ router.post('/envoyerMailConfirmationMdp', async (req, res)=>{
 
         const suppCourrielDeLaTable = await requestCodeVerif.deleteCodeVerificationByMail(email)
 
-
-        let transporter = nodemailer.createTransport({
-            service:'gmail',
-            auth: {
-              user: "seluentreprise@gmail.com", // generated ethereal user
-              pass: "qsgjpkzwwndgjpri", // generated ethereal password
-            },
-            debug: false,
-            logger: true  // <---highly recommend this one here
-        });
-
-        let info = await transporter.sendMail({
-            from: 'selu.entreprise',
-            to: email,
-            subject:"Mot de passe oublié",
-            text: "Code de rehinitialisation de mot de passe",
-            html: `<h1>Code de confirmation</h1><p>Vous avez fait une demande de changement de mot de passe </p>
-                    <p>Votre code de confirmation : </p>
-                    <h1>${code}</h1>`
-        });
-        
         const insertData = await requestCodeVerif.insertCodeVerification(code, email)
 
-        console.log("Message sent: %s", info.messageId);
+
+        sendMail(email, 'Mot de passe oublié', code);
+
         res.status(200).json({
             success: true,
-            // messageId: info.messageId
         });
 
     }catch(error) {

@@ -19,7 +19,7 @@ function connexion(identifiant, motDePasse) {
 function ifMailExists(courriel){
     return knex('Utilisateurs').where({
         Courriel: courriel
-      }).select('Id')
+      }).select('Courriel')
 }
 
 function findMdp(courriel){
