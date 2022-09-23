@@ -1,6 +1,12 @@
 
 function randomCode(){
-    return (Math.random().toString(36).slice(-6))
+    let code = ''
+
+    for (let i = 0; i < 6; i++) {
+        code += (Math.floor(Math.random()*10).toString())
+    }
+
+    return code
 }
 
 module.exports = {
