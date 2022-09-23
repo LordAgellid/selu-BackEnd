@@ -1,0 +1,41 @@
+<%- include('./includes/header.ejs') %>
+
+<div
+  style="
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+    width: 580px;
+    font-weight: 500;
+    color: black;
+    font-family: Inter, sans-serif;
+    font-size: 1rem;
+    padding: 1rem 2rem ;
+  "
+>
+    <h3>Cher utilisateur Selu</h3>
+    <p>
+        Nous avons reçu une requête de changement de mot de passe pour ce courriel : <%= receiver %> .
+        <br>
+        Voici votre code de vérification :
+    </p>
+    <p
+        style="
+            font-size: 2.5rem;
+            text-align: center;
+            font-weight: 700;
+        "
+    >
+        <%= content  %>
+    </p>
+    <p>
+        Si vous n'avez pas fait la requete, il est possible que quelqu'un essaye d'accéder à votre compte Selu <%= receiver %>. Ne donnez ce code à personne.
+        <br>
+        <br>
+        Nos sinceres salutations,
+        <br>
+        <br>
+        L'équipe Selu.
+    </p>
+
+</div>
+
+<%- include('./includes/footer.ejs') %>
