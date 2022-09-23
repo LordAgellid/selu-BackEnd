@@ -7,7 +7,7 @@ USE [5D1G01E05]
 GO
 
 /*----------------------------------------Table Utilisateurs----------------------------------------*/
-CREATE TABLE Utilisateurs(
+CREATE TABLE Utilisateurs (
     Id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
     Prenom VARCHAR(255) NOT NULL,
     NomDeFamille VARCHAR(255) NOT NULL,
@@ -20,9 +20,11 @@ CREATE TABLE Utilisateurs(
 )
 GO
 
+
+
 --Insertion de donnes dans la table Utilisateur
 INSERT INTO Utilisateurs VALUES
-    ('Yao', 'Kounakou', 'kounakouy@gmail.com', 'MDP', '2022-09-07', '2022-09-07', '/', '/')
+    ('Mak', 'Hen', 'agellid11o2@gmail.com', 'MDP', '2022-09-07', '2022-09-07', NULL, NULL)
 GO
 
 -- Slection de la table Utilisateur
@@ -41,6 +43,7 @@ CREATE TABLE Livres (
     MaisonEdition VARCHAR(255) NOT NULL DEFAULT 'Aucune',
     DatePublication DATE NOT NULL,
     PhotoId VARCHAR(255),
+	
 )
 GO
 
@@ -117,10 +120,23 @@ GO
 SELECT * FROM Programmes
 GO
 
+/*----------------------------------------Table Code de Verification----------------------------------------*/
+DROP TABLE CodeVerification 
+
+CREATE TABLE CodeVerification (
+	Id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	Code VARCHAR(6) NOT NULL,
+	CourrielUtilisateur VARCHAR(255) NOT NULL
+)
+GO
+
+alter table CodeVerification add FOREIGN KEY (CourrielUtilisateur) REFERENCES Utilisateurs(Courriel)	
+GO
 /*----------------------------------------Sélection de toutes les tables----------------------------------------*/
 SELECT * FROM Cours
 SELECT * FROM Favoris
 SELECT * FROM Livres
 SELECT * FROM Programmes
 SELECT * FROM Utilisateurs
+SELECT * FROM CodeVerification
 GO
