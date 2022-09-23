@@ -9,10 +9,9 @@ function getUtilisateursAll() {
 }
 
 // Requete knex qui retourne les informations de connexion
-function connexion(identifiant, motDePasse) {
+function connexion(Courriel) {
     return knex('Utilisateurs')
-        .where('Identifiant', identifiant)
-        .andWhere('MotDePasse', motDePasse);
+        .where('Courriel', Courriel);
 }
 
 // Requete qui verifie si un email existe
