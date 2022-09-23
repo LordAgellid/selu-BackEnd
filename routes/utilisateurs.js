@@ -36,7 +36,7 @@ router.put('/modifierMotDePasse', async (req, res) =>{
 
     }catch(error){
         console.log(error)
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
             message:'server error'
         })

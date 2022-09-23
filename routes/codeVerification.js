@@ -20,7 +20,7 @@ router.post('/envoyerMailConfirmationMdp', async (req, res)=>{
 
         const emailRequest = await requestUtisateur.ifMailExists(email); 
 
-        if(emailRequest.length === 0) res.status(401).json({ success: false })
+        if(emailRequest.length === 0) return res.status(404).json({ success: false })
         
 
         const code = constantes.randomCode();
@@ -32,13 +32,15 @@ router.post('/envoyerMailConfirmationMdp', async (req, res)=>{
 
         sendMail(email, 'Mot de passe oublié', code);
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
         });
 
     }catch(error) {
-        console.log(error)
-        res.send(error)
+        return res.status(400).json({
+            success: false,
+            message: 'Server Error'
+        })
     }
 });
 
@@ -51,18 +53,18 @@ router.post('/confirmationCode', async (req, res)=>{
     
         const codeData = await requestCodeVerif.findCodeVerification(courriel)
 
-        if(codeUser != codeData[0]['Code']) res.status(400).json({
+        if(codeUser != codeData[0]['Code']) return res.status(401).json({
             success: false
         })
 
         const deleteCode = await requestCodeVerif.deleteCodeVerificationByMail(courriel) 
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true
         })
     }catch(error){
         console.log(error)
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
             message: 'Server Error'
         })
