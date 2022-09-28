@@ -92,6 +92,6 @@ router.put('/modifierMotDePasse', async (req, res) =>{
             success: false,
             message:'server error'
         })
-
-
+    }
+});
 module.exports = router;
