@@ -17,13 +17,13 @@ app.use(express.json());
 
 app.use('/utilisateurs', utilisateursRouter);
 
-const sslServer = https.createServer({
-    key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem'))
-}, app)
+// const sslServer = https.createServer({
+//     key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+//     cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem'))
+// }, app)
 
-sslServer.listen(PORT, () => console.log(`Mon application roule sur https://localhost:${PORT}`));
+// sslServer.listen(PORT, () => console.log(`Mon application roule sur https://localhost:${PORT}`));
 
-// app.listen(PORT, () => {
-//     console.log(`Mon application roule sur http://localhost:${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`Mon application roule sur http://localhost:${PORT}`);
+});

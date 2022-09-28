@@ -43,6 +43,9 @@ router.post('/inscription', async (req, res) => {
         return res.status(400).json('Le Prenom, NomDeFamille, Courriel, MotDePasse ne doivent pas etre vides');
     }
 
+    resultatmail = await request.ifMailExists(Courriel);
+    if (resultatmail.length !== 0) return res.status(404).json({ success: false, message: 'Le mail existe deja'});
+
     var MotDePasseHash = await bcrypt.hash(MotDePasse, 8);
 
     var now = new Date();
