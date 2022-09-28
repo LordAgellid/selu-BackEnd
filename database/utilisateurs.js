@@ -8,6 +8,33 @@ function getUtilisateursAll() {
     return knex('Utilisateurs');
 }
 
+function getUtilisateursByID(IdUtilisateurs) {
+    return knex('Utilisateurs')
+        .where('Utilisateurs.Id', IdUtilisateurs)
+        .select('*');
+}
+
+function insertUtilisateur(Prenom, NomDeFamille, Courriel, MotDePasse, DateDeCreation, DerniereConnexion, PhotoDeProfil, PhotoDeCouverture) {
+    return knex('Utilisateurs')
+        .insert({
+            Prenom,
+            NomDeFamille,
+            Courriel,
+            MotDePasse,
+            DateDeCreation,
+            DerniereConnexion,
+            PhotoDeProfil,
+            PhotoDeCouverture
+        }, ['Id'])
+        .returning('Id');
+}
+
+function ifMailExists(courriel){
+    return knex('Utilisateurs').where({
+        Courriel: courriel
+      }).select('Id')
+}
+
 // Requete knex qui retourne les informations de connexion
 function connexion(Courriel) {
     return knex('Utilisateurs')
@@ -40,6 +67,8 @@ function modifierMotDePasse(courriel, motDePasse){
 module.exports = {
     getUtilisateursAll,
     connexion,
+    getUtilisateursByID,
+    insertUtilisateur,
     ifMailExists,
     findMdp,
     modifierMotDePasse
