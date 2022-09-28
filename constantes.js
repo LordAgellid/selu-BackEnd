@@ -1,17 +1,14 @@
-const chaineConnexion = {
-  client: 'mssql',
-  connection: {
-      host: 'sv55.cmaisonneuve.qc.ca',
-      user: '5D1G01E05',
-      password: 'Selu355',
-      database: '5D1G01E05',
-      options: {
-          enableArithAbort: false,
-      },
-  },
-  pool: { min: 0, max: 7 },
-  useNullAsDefault: true,
-};
 
-// eslint-disable-next-line import/prefer-default-export
-module.exports = chaineConnexion;
+function randomCode(){
+    let code = ''
+
+    for (let i = 0; i < 6; i++) {
+        code += (Math.floor(Math.random()*10).toString())
+    }
+
+    return code
+}
+
+module.exports = {
+    randomCode
+}

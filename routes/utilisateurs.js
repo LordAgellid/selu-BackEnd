@@ -2,16 +2,17 @@ const express = require('express');
 
 const bcrypt = require('bcrypt');
 
-const request = require('../database/utilisateurs');
+const requestUtlisateur = require('../database/utilisateurs');
 
 const router = express.Router();
+
 
 router.get('/', async (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
 
     let resultat;
     try {
-        resultat = await request.getUtilisateursAll();
+        resultat = await requestUtlisateur.getUtilisateursAll();
     } catch (error) {
         res.status(500).json(error.message);
     }
@@ -70,5 +71,27 @@ router.post('/inscription', async (req, res) => {
         return res.status(500).json(error.message);
     }
 });
+
+router.put('/modifierMotDePasse', async (req, res) =>{
+    try{
+        const body = req.body
+        const mdp = await bcrypt.hash(body.MotDePasse, 8);
+        const courriel = body.Courriel
+
+        const modifierMotDePasse = await requestUtlisateur.modifierMotDePasse(courriel, mdp) 
+
+        res.status(200).json({
+            success: true,
+            message: 'Mot de passe modifié',
+            
+        });
+
+    }catch(error){
+        console.log(error)
+        return res.status(400).json({
+            success: false,
+            message:'server error'
+        })
+
 
 module.exports = router;

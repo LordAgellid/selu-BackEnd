@@ -1,5 +1,5 @@
 const knexModule = require('knex');
-const chaineConnexion = require('../constantes');
+const chaineConnexion = require('../connexionBd');
 
 const knex = knexModule(chaineConnexion);
 
@@ -36,10 +36,32 @@ function ifMailExists(courriel){
 }
 
 // Requete knex qui retourne les informations de connexion
-function connexion(identifiant, motDePasse) {
+function connexion(Courriel) {
     return knex('Utilisateurs')
-        .where('Identifiant', identifiant)
-        .andWhere('MotDePasse', motDePasse);
+        .where('Courriel', Courriel);
+}
+
+// Requete qui verifie si un email existe
+function ifMailExists(courriel){
+    return knex('Utilisateurs').where({
+        Courriel: courriel
+      }).select('Courriel')
+}
+
+function findMdp(courriel){
+    return knex('Utilisateurs').where({
+        Courriel: courriel 
+    }).select('MotDePasse')
+}
+
+function modifierMotDePasse(courriel, motDePasse){
+    return knex('Utilisateurs')
+            .where({
+                Courriel: courriel 
+            })
+            .update({
+                MotDePasse: motDePasse
+            })
 }
 
 module.exports = {
@@ -48,4 +70,6 @@ module.exports = {
     getUtilisateursByID,
     insertUtilisateur,
     ifMailExists,
+    findMdp,
+    modifierMotDePasse
 };
