@@ -29,12 +29,6 @@ function insertUtilisateur(Prenom, NomDeFamille, Courriel, MotDePasse, DateDeCre
         .returning('Id');
 }
 
-function ifMailExists(courriel){
-    return knex('Utilisateurs').where({
-        Courriel: courriel
-      }).select('Id')
-}
-
 // Requete knex qui retourne les informations de connexion
 function connexion(Courriel) {
     return knex('Utilisateurs')
@@ -62,6 +56,16 @@ function modifierMotDePasse(courriel, motDePasse){
             .update({
                 MotDePasse: motDePasse
             })
+}
+
+function modifierProfile(courriel) {
+    return knex('Utilisateurs')
+    .where({
+        Courriel: courriel 
+    })
+    .update({
+        MotDePasse: motDePasse
+    })
 }
 
 module.exports = {
