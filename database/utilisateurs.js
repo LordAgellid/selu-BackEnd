@@ -58,14 +58,23 @@ function modifierMotDePasse(courriel, motDePasse){
             })
 }
 
-function modifierProfile(courriel) {
+function modifierProfile(courriel, photoDeProfil, photoDeCouverture, nomDeFamille, prenom) {
     return knex('Utilisateurs')
     .where({
         Courriel: courriel 
     })
     .update({
-        MotDePasse: motDePasse
+        NomDeFamille: nomDeFamille,
+        Prenom: prenom,
+        PhotoDeProfil: photoDeProfil,
+        PhotoDeCouverture: photoDeCouverture
     })
+}
+
+function getProfileByMail(courriel, photoDeProfil, photoDeCouverture, nomDeFamille, prenom) {
+    return knex('Utilisateurs')
+        .where('Utilisateurs.Courriel', courriel)
+        .select('photoDeProfil', 'photoDeCouverture', 'nomDeFamille', 'prenom');
 }
 
 module.exports = {
@@ -75,5 +84,5 @@ module.exports = {
     insertUtilisateur,
     ifMailExists,
     findMdp,
-    modifierMotDePasse
+    modifierMotDePasse,
 };
