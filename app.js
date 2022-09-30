@@ -13,8 +13,9 @@ const PORT = process.env.PORT || 3000;
 
 const utilisateursRouter = require('./routes/utilisateurs');
 const connexion = require('./routes/connexion')
-
+//const profileRouter = require('./routes/profile');
 const codeVerificationRouter = require('./routes/codeVerification');
+const profileRouter = require('./routes/profile');
 
 
 app.use(cors());
@@ -23,8 +24,8 @@ app.use(express.json());
 
 app.use('/utilisateurs', utilisateursRouter);
 app.use('/codeVerificaion', codeVerificationRouter);
-
-app.use('/connexion',connexion)
+app.use('/profile', profileRouter);
+app.use('/connexion',connexion);
 
 // const sslServer = https.createServer({
 //     key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
