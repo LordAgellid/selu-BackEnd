@@ -44,8 +44,8 @@ router.post('/inscription', async (req, res) => {
         return res.status(400).json('Le Prenom, NomDeFamille, Courriel, MotDePasse ne doivent pas etre vides');
     }
 
-    resultatmail = await request.ifMailExists(Courriel);
-    if (resultatmail.length !== 0) return res.status(404).json({ success: false, message: 'Le mail existe deja'});
+    resultatmail = await requestUtlisateur.ifMailExists(Courriel);
+    if (resultatmail.length !== 0) return res.status(404).json({ success: false, message: 'Le mail existe deja' });
 
     var MotDePasseHash = await bcrypt.hash(MotDePasse, 8);
 
@@ -53,7 +53,7 @@ router.post('/inscription', async (req, res) => {
     var datenow = now.toISOString();
 
     try {
-        const id = await request.insertUtilisateur(
+        const id = await requestUtlisateur.insertUtilisateur(
             Prenom,
             NomDeFamille,
             Courriel,
@@ -72,25 +72,24 @@ router.post('/inscription', async (req, res) => {
     }
 });
 
-router.put('/modifierMotDePasse', async (req, res) =>{
-    try{
+router.put('/modifierMotDePasse', async (req, res) => {
+    try {
         const body = req.body
         const mdp = await bcrypt.hash(body.MotDePasse, 8);
         const courriel = body.Courriel
 
-        const modifierMotDePasse = await requestUtlisateur.modifierMotDePasse(courriel, mdp) 
+        const modifierMotDePasse = await requestUtlisateur.modifierMotDePasse(courriel, mdp)
 
         res.status(200).json({
             success: true,
             message: 'Mot de passe modifié',
-            
         });
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return res.status(400).json({
             success: false,
-            message:'server error'
+            message: 'server error'
         })
     }
 });
