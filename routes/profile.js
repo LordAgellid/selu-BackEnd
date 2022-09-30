@@ -14,19 +14,21 @@ var storage = multer.diskStorage({
     cb(null, path.join(__dirname, '../uploads'));
     },
     filename: function (req, file, cb) {
+    console.log(file);
     cb(null ,file.originalname);
     }
 });
 const upload = multer({storage: storage});
 
-router.post('/Modifierprofile', upload.single('PhotoDeProfil'), async(req, res) => {
+router.post('/Modifierprofile', upload.single('image'), async(req, res) => {
   const { Prenom } = req.body;
   const { NomDeFamille } = req.body;
   const { Courriel } = req.body;
   const path = `http://localhost:3000/profile/getFile/${req.file.originalname}`
   try{
 
-    const modifierMotDePasse = await requestProfile.modifierProfile(Courriel, path, null, NomDeFamille, Prenom)
+    //const modifierMotDePasse = await requestProfile.modifierProfile(Courriel, path, null, NomDeFamille, Prenom)
+    const modifierMotDePasse = await requestProfile.modifierProfile('adwadw@.com', path, null, 'Lamy', 'Nat')
 
     res.status(200).send({
       "Message": "Image updated & stored",
