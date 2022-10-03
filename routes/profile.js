@@ -27,8 +27,8 @@ router.post('/Modifierprofile', upload.single('image'), async(req, res) => {
   const path = `http://localhost:3000/profile/getFile/${req.file.originalname}`
   try{
 
-    //const modifierMotDePasse = await requestProfile.modifierProfile(Courriel, path, null, NomDeFamille, Prenom)
-    const modifierMotDePasse = await requestProfile.modifierProfile('adwadw@.com', path, null, 'Lamy', 'Nat')
+    const modifierMotDePasse = await requestProfile.modifierProfile(Courriel, path, null, NomDeFamille, Prenom)
+    //const modifierMotDePasse = await requestProfile.modifierProfile('adwadw@.com', path, null, 'Lamy', 'Nat')
 
     res.status(200).send({
       "Message": "Image updated & stored",
@@ -43,9 +43,6 @@ router.post('/Modifierprofile', upload.single('image'), async(req, res) => {
       })
   }
 });
-
-//Créer une route /getFile/nomImage. extensionImage
-//permettant de visualiser l’image dans le navigateur web.
 
 router.use('/getFile', express.static('uploads'));
 
