@@ -4,35 +4,35 @@ const requestProfile = require('../database/profile');
 
 const router = express.Router();
 
-//Multer :)
-const multer = require('multer');
+// //Multer :)
+// const multer = require('multer');
 
-const path = require('path');
+// const path = require('path');
 
-var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-    cb(null, path.join(__dirname, '../uploads'));
-    },
-    filename: function (req, file, cb) {
-    console.log(file);
-    cb(null ,file.originalname);
-    }
-});
-const upload = multer({storage: storage});
+// var storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//     cb(null, path.join(__dirname, '../uploads'));
+//     },
+//     filename: function (req, file, cb) {
+//     console.log(file);
+//     cb(null ,file.originalname);
+//     }
+// });
+// const upload = multer({storage: storage});
 
-router.post('/Modifierprofile', upload.single('image'), async(req, res) => {
+router.post('/Modifierprofile', async(req, res) => {
   const { Prenom } = req.body;
   const { NomDeFamille } = req.body;
   const { Courriel } = req.body;
-  const path = `http://localhost:3000/profile/getFile/${req.file.originalname}`
+  const { Image } = req.body;
   try{
 
-    const modifierMotDePasse = await requestProfile.modifierProfile(Courriel, path, null, NomDeFamille, Prenom)
-    //const modifierMotDePasse = await requestProfile.modifierProfile('adwadw@.com', path, null, 'Lamy', 'Nat')
+    const modifierMotDePasse = await requestProfile.modifierProfile(Courriel, Image, NomDeFamille, Prenom)
+
 
     res.status(200).send({
-      "Message": "Image updated & stored",
-      "Image": req.file
+      "Message": "Le profile a ete modifie avec succes",
+      "Image": Image
     });
 
   } catch(error) {

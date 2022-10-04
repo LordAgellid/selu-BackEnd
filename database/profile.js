@@ -3,7 +3,7 @@ const chaineConnexion = require('../connexionBd');
 
 const knex = knexModule(chaineConnexion);
 
-function modifierProfile(courriel, photoDeProfil, photoDeCouverture, nomDeFamille, prenom) {
+function modifierProfile(courriel, photoDeProfil, nomDeFamille, prenom) {
     return knex('Utilisateurs')
     .where({
         Courriel: courriel 
@@ -11,8 +11,7 @@ function modifierProfile(courriel, photoDeProfil, photoDeCouverture, nomDeFamill
     .update({
         NomDeFamille: nomDeFamille,
         Prenom: prenom,
-        PhotoDeProfil: photoDeProfil,
-        PhotoDeCouverture: photoDeCouverture
+        PhotoDeProfil: photoDeProfil
     })
 }
 

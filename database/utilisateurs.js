@@ -85,4 +85,6 @@ module.exports = {
     ifMailExists,
     findMdp,
     modifierMotDePasse,
+    modifierProfile,
+    getProfileByMail
 };

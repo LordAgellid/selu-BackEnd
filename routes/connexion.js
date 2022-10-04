@@ -47,6 +47,7 @@ router.post('/', async (req, res) => {
         Courriel: resultat[0].Courriel,
         Nom: resultat[0].NomDeFamille,
         Prenom: resultat[0].Prenom,
+        Image: resultat[0].PhotoDeProfil,
         access_token: accessToken,
         expires_in: expiresIn,
     });
