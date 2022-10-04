@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
 
     let resultat;
     try {
-        resultat = await request.getUtilisateursByID(req.params.id);
+        resultat = await requestUtlisateur.getUtilisateursByID(req.params.id);
     } catch (error) {
         res.status(500).json(error.message);
     }
@@ -44,7 +44,7 @@ router.post('/inscription', async (req, res) => {
         return res.status(400).json('Le Prenom, NomDeFamille, Courriel, MotDePasse ne doivent pas etre vides');
     }
 
-    resultatmail = await request.ifMailExists(Courriel);
+    resultatmail = await requestUtlisateur.ifMailExists(Courriel);
     if (resultatmail.length !== 0) return res.status(404).json({ success: false, message: 'Le mail existe deja'});
 
     var MotDePasseHash = await bcrypt.hash(MotDePasse, 8);
@@ -53,7 +53,7 @@ router.post('/inscription', async (req, res) => {
     var datenow = now.toISOString();
 
     try {
-        const id = await request.insertUtilisateur(
+        const id = await requestUtlisateur.insertUtilisateur(
             Prenom,
             NomDeFamille,
             Courriel,
