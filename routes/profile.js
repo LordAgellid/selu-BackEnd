@@ -4,33 +4,35 @@ const requestProfile = require('../database/profile');
 
 const router = express.Router();
 
-//Multer :)
-const multer = require('multer');
+// //Multer :)
+// const multer = require('multer');
 
-const path = require('path');
+// const path = require('path');
 
-var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-    cb(null, path.join(__dirname, '../uploads'));
-    },
-    filename: function (req, file, cb) {
-    cb(null ,file.originalname);
-    }
-});
-const upload = multer({storage: storage});
+// var storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//     cb(null, path.join(__dirname, '../uploads'));
+//     },
+//     filename: function (req, file, cb) {
+//     console.log(file);
+//     cb(null ,file.originalname);
+//     }
+// });
+// const upload = multer({storage: storage});
 
-router.post('/Modifierprofile', upload.single('PhotoDeProfil'), async(req, res) => {
+router.post('/Modifierprofile', async(req, res) => {
   const { Prenom } = req.body;
   const { NomDeFamille } = req.body;
   const { Courriel } = req.body;
-  const path = `http://localhost:3000/profile/getFile/${req.file.originalname}`
+  const { Image } = req.body;
   try{
 
-    const modifierMotDePasse = await requestProfile.modifierProfile(Courriel, path, null, NomDeFamille, Prenom)
+    const modifierMotDePasse = await requestProfile.modifierProfile(Courriel, Image, NomDeFamille, Prenom)
+
 
     res.status(200).send({
-      "Message": "Image updated & stored",
-      "Image": req.file
+      "Message": "Le profile a ete modifie avec succes",
+      "Image": Image
     });
 
   } catch(error) {
@@ -42,9 +44,19 @@ router.post('/Modifierprofile', upload.single('PhotoDeProfil'), async(req, res) 
   }
 });
 
-//Créer une route /getFile/nomImage. extensionImage
-//permettant de visualiser l’image dans le navigateur web.
-
 router.use('/getFile', express.static('uploads'));
+
+router.get('/:email', async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+
+  let resultat;
+  try {
+      resultat = await requestProfile.getProfileByMail(req.params.email);
+  } catch (error) {
+      res.status(500).json(error.message);
+  }
+
+  return res.status(200).json(resultat);
+});
 
 module.exports = router;
