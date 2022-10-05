@@ -45,7 +45,11 @@ router.post('/inscription', async (req, res) => {
     }
 
     resultatmail = await requestUtlisateur.ifMailExists(Courriel);
+<<<<<<< routes/utilisateurs.js
     if (resultatmail.length !== 0) return res.status(404).json({ success: false, message: 'Le mail existe deja'});
+=======
+    if (resultatmail.length !== 0) return res.status(404).json({ success: false, message: 'Le mail existe deja' });
+>>>>>>> routes/utilisateurs.js
 
     var MotDePasseHash = await bcrypt.hash(MotDePasse, 8);
 
@@ -72,25 +76,24 @@ router.post('/inscription', async (req, res) => {
     }
 });
 
-router.put('/modifierMotDePasse', async (req, res) =>{
-    try{
+router.put('/modifierMotDePasse', async (req, res) => {
+    try {
         const body = req.body
         const mdp = await bcrypt.hash(body.MotDePasse, 8);
         const courriel = body.Courriel
 
-        const modifierMotDePasse = await requestUtlisateur.modifierMotDePasse(courriel, mdp) 
+        const modifierMotDePasse = await requestUtlisateur.modifierMotDePasse(courriel, mdp)
 
         res.status(200).json({
             success: true,
             message: 'Mot de passe modifié',
-            
         });
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
         return res.status(400).json({
             success: false,
-            message:'server error'
+            message: 'server error'
         })
     }
 });
