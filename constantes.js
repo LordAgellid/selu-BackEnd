@@ -1,13 +1,14 @@
-const sql = require('mssql/msnodesqlv8')
 
-const pool = new sql.ConnectionPool({
-    database: 'projet3',
-    server: 'MSI\\SQLEXPRESS',
-    driver: 'msnodesqlv8',
-    options: {
-      trustedConnection: true
+function randomCode(){
+    let code = ''
+
+    for (let i = 0; i < 6; i++) {
+        code += (Math.floor(Math.random()*10).toString())
     }
-  })
 
-// eslint-disable-next-line import/prefer-default-export
-module.exports = pool;
+    return code
+}
+
+module.exports = {
+    randomCode
+}
