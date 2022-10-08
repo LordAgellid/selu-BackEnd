@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "lint": "npx eslint *.js",
     "fix": "eslint --fix --ext .js,.jsx .",
     "test": "jest",
-    "start": "nodemon app.js "
+    "start": "node app.js",
+    "serve": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
