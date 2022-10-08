@@ -20,12 +20,12 @@ const router = express.Router();
 // });
 // const upload = multer({storage: storage});
 
-router.post('/Modifierprofile', async(req, res) => {
+router.post('/Modifierprofile', async (req, res) => {
   const { Prenom } = req.body;
   const { NomDeFamille } = req.body;
   const { Courriel } = req.body;
   const { Image } = req.body;
-  try{
+  try {
 
     const modifierMotDePasse = await requestProfile.modifierProfile(Courriel, Image, NomDeFamille, Prenom)
 
@@ -35,12 +35,12 @@ router.post('/Modifierprofile', async(req, res) => {
       "Image": Image
     });
 
-  } catch(error) {
-      console.log(error)
-      return res.status(400).json({
-          success: false,
-          message:'server error'
-      })
+  } catch (error) {
+    console.log(error)
+    return res.status(400).json({
+      success: false,
+      message: 'server error'
+    })
   }
 });
 
@@ -51,9 +51,9 @@ router.get('/:email', async (req, res) => {
 
   let resultat;
   try {
-      resultat = await requestProfile.getProfileByMail(req.params.email);
+    resultat = await requestProfile.getProfileByMail(req.params.email);
   } catch (error) {
-      res.status(500).json(error.message);
+    res.status(500).json(error.message);
   }
 
   return res.status(200).json(resultat);

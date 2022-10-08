@@ -25,14 +25,14 @@ router.post('/', async (req, res) => {
     let resultat;
 
     try {
-        const { Courriel , MotDePasse } = req.body;
+        const { Courriel, MotDePasse } = req.body;
         resultat = await request.connexion(Courriel);
         if (resultat.length === 0) {
 
             return res.status(404).json({ succes: false });
         }
-        password = bcrypt.compareSync(MotDePasse,resultat[0].MotDePasse);
-        if (!password) return res.status(401).json({success: false})
+        password = bcrypt.compareSync(MotDePasse, resultat[0].MotDePasse);
+        if (!password) return res.status(401).json({ success: false })
 
     } catch (error) {
         res.status(500).json(error);

@@ -36,39 +36,39 @@ function connexion(Courriel) {
 }
 
 // Requete qui verifie si un email existe
-function ifMailExists(courriel){
+function ifMailExists(courriel) {
     return knex('Utilisateurs').where({
         Courriel: courriel
-      }).select('Courriel')
+    }).select('Courriel')
 }
 
-function findMdp(courriel){
+function findMdp(courriel) {
     return knex('Utilisateurs').where({
-        Courriel: courriel 
+        Courriel: courriel
     }).select('MotDePasse')
 }
 
-function modifierMotDePasse(courriel, motDePasse){
+function modifierMotDePasse(courriel, motDePasse) {
     return knex('Utilisateurs')
-            .where({
-                Courriel: courriel 
-            })
-            .update({
-                MotDePasse: motDePasse
-            })
+        .where({
+            Courriel: courriel
+        })
+        .update({
+            MotDePasse: motDePasse
+        })
 }
 
 function modifierProfile(courriel, photoDeProfil, photoDeCouverture, nomDeFamille, prenom) {
     return knex('Utilisateurs')
-    .where({
-        Courriel: courriel 
-    })
-    .update({
-        NomDeFamille: nomDeFamille,
-        Prenom: prenom,
-        PhotoDeProfil: photoDeProfil,
-        PhotoDeCouverture: photoDeCouverture
-    })
+        .where({
+            Courriel: courriel
+        })
+        .update({
+            NomDeFamille: nomDeFamille,
+            Prenom: prenom,
+            PhotoDeProfil: photoDeProfil,
+            PhotoDeCouverture: photoDeCouverture
+        })
 }
 
 function getProfileByMail(courriel, photoDeProfil, photoDeCouverture, nomDeFamille, prenom) {
