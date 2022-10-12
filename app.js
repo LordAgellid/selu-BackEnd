@@ -25,8 +25,15 @@ app.use(express.json());
 app.use('/utilisateurs', utilisateursRouter);
 app.use('/codeVerificaion', codeVerificationRouter);
 app.use('/profile', profileRouter);
+<<<<<<< app.js
+app.use('/connexion',connexion);
+
+app.listen(PORT, () => {
+    console.log(`Mon application roule sur http://localhost:${PORT}\n`);
+=======
 app.use('/connexion', connexion);
 
 app.listen(PORT, () => {
     console.log(`Mon application roule sur -> http://localhost:${PORT}\n`);
+>>>>>>> app.js
 });
