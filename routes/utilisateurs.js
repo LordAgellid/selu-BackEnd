@@ -45,7 +45,7 @@ router.post('/inscription', async (req, res) => {
     }
 
     resultatmail = await requestUtlisateur.ifMailExists(Courriel);
-    if (resultatmail.length !== 0) return res.status(404).json({ success: false, message: 'Le mail existe deja'});
+    if (resultatmail.length !== 0) return res.status(404).json({ success: false, message: 'Le mail existe deja' });
 
     var MotDePasseHash = await bcrypt.hash(MotDePasse, 8);
 
