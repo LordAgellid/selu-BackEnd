@@ -12,7 +12,7 @@ const constantes = require("../constantes")
 const { sendMail } = require("../email")
 
 
-router.post('/envoyerMailConfirmationMdp', async (req, res) => {
+router.post('/envoi-mail-confirmation', async (req, res) => {
 
     try {
 
@@ -44,7 +44,7 @@ router.post('/envoyerMailConfirmationMdp', async (req, res) => {
     }
 });
 
-router.post('/confirmationCode', async (req, res) => {
+router.post('/confirmation-code', async (req, res) => {
     try {
 
         const body = req.body

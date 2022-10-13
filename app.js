@@ -15,7 +15,7 @@ const utilisateursRouter = require('./routes/utilisateurs');
 const connexion = require('./routes/connexion')
 //const profileRouter = require('./routes/profile');
 const codeVerificationRouter = require('./routes/codeVerification');
-const profileRouter = require('./routes/profile');
+const profilRouter = require('./routes/profil');
 
 
 app.use(cors());
@@ -27,8 +27,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/utilisateurs', utilisateursRouter);
-app.use('/codeVerificaion', codeVerificationRouter);
-app.use('/profile', profileRouter);
+app.use('/code-verification', codeVerificationRouter);
+app.use('/profil', profilRouter);
 
 app.use('/connexion', connexion);
 

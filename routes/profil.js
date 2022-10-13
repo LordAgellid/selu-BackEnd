@@ -20,7 +20,7 @@ const router = express.Router();
 // });
 // const upload = multer({storage: storage});
 
-router.post('/Modifierprofile', async (req, res) => {
+router.post('/modifier-profil', async (req, res) => {
   const { Prenom } = req.body;
   const { NomDeFamille } = req.body;
   const { Courriel } = req.body;

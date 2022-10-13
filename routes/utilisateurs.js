@@ -72,7 +72,7 @@ router.post('/inscription', async (req, res) => {
     }
 });
 
-router.put('/modifierMotDePasse', async (req, res) => {
+router.put('/modifier-motdepasse', async (req, res) => {
     try {
         const body = req.body
         const mdp = await bcrypt.hash(body.MotDePasse, 8);
