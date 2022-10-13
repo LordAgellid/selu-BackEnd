@@ -1,0 +1,216 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Selu API'
+  description: API officielle du projet.
+
+servers:
+  - url: seluapi.herokuapp.com
+
+paths:
+  /utilisateurs:
+    get:
+      summary: Obtenir tous les utilisateurs
+      description: Obtenir tous les utilisateurs de la Base de Données.
+      operationId: obtenirTousLesUtilisateurs
+      tags:
+        - API
+      responses:
+        '200':
+          description: Réponse OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apis:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: The date and time at which the API was created.
+                          example: '2022-06-09T14:48:45.000Z'
+                        updatedAt:
+                          type: string
+                          format: date-time
+                          description: The date and time at which the API was updated.
+                          example: '2022-06-09T19:50:49.000Z'
+                        createdBy:
+                          type: string
+                          description: The user who created the API.
+                          example: '12345678'
+                        description:
+                          type: string
+                          description: The API's description.
+                          example: This is a test API.
+                        id:
+                          type: string
+                          format: uuid
+                          description: The API's ID.
+                          example: 387c2863-6ee3-4a56-8210-225f774edade
+                        name:
+                          type: string
+                          description: The API's name.
+                          example: Test API
+                        summary:
+                          type: string
+                          description: The API's summary.
+                          example: Test API.
+              examples:
+                Get All APIs:
+                  value:
+                    apis:
+                    - createdAt: '2022-06-09T14:48:45.000Z'
+                      updatedAt: '2022-06-09T19:50:49.000Z'
+                      id: 5360b75f-447e-467c-9299-12fd6c92450d
+                      name: Test API
+                      summary: Test API.
+                      description: This is a test API.
+                      createdBy: '12345678'
+                      updatedBy: '12345678'
+                      isPublic: true
+                    - createdAt: '2022-06-22T16:51:28.000Z'
+                      updatedAt: '2022-06-22T16:51:28.000Z'
+                      id: 69ce25ea-2914-426e-ae34-af558b6777e6
+                      name: Public API A
+                      summary: Public Test A.
+                      description: This is a public test API.
+                      createdBy: '12345678'
+                      updatedBy: '12345678'
+                      isPublic: true
+                    - createdAt: '2022-06-30T16:51:28.000Z'
+                      updatedAt: '2022-06-30T16:51:28.000Z'
+                      id: 69ce25ea-2914-426e-ae34-af558b6777e6
+                      name: Public Test API B
+                      summary: Public Test B
+                      description: This is another public test API.
+                      createdBy: '87654321'
+                      updatedBy: '87654321'
+                      isPublic: false
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      summary: Create an API
+      description: Creates an API.
+      operationId: createApi
+      tags:
+        - API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                api:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: The API's name.
+                      example: Test API
+                    summary:
+                      type: string
+                      description: A short summary of the API.
+                      example: Test API Schema
+                    description:
+                      type: string
+                      description: A description of the API.
+                      example: This is a test API.
+            example:
+              api:
+                name: Test API
+                summary: Test API Schema
+                description: This is a test API.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  api:
+                    type: object
+                    properties:
+                      createdAt:
+                        type: string
+                        format: date-time
+                        description: The date and time at which the API was created.
+                        example: '2022-06-15T00:00:00.000Z'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        description: The date and time at which the API was last updated.
+                        example: '2022-06-15T00:00:00.000Z'
+                      id:
+                        type: string
+                        format: uuid
+                        description: The API's ID.
+                        example: 387c2863-6ee3-4a56-8210-225f774edade
+                      name:
+                        type: string
+                        description: The API's name.
+                        example: Test API
+                      summary:
+                        type: string
+                        description: The API's short summary.
+                        example: Test API Schema
+                      createdBy:
+                        type: string
+                        description: The user ID of the user who created the API.
+                        example: '12345678'
+                      updatedBy:
+                        type: string
+                        description: The user ID of the user who last updated the API.
+                        example: '12345678'
+                      description:
+                        type: string
+                        description: The API's description.
+                        example: This is a test API.
+              example:
+                
+        '400':
+          $ref: '#/components/responses/paramMissingError'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      parameters:
+        - $ref: '#/components/parameters/workspaceQueryId'
+components:
+  schemas:
+    SpacecraftId:
+      description: The unique identifier of a spacecraft
+      type: string
+    Spacecraft:
+      type: object
+      required:
+        - id
+        - name
+        - type
+      properties:
+        id:
+          $ref: '#/components/schemas/SpacecraftId'
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - capsule
+            - probe
+            - satellite
+            - spaceplane
+            - station
+        description:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: A human readable error message
+          type: string
