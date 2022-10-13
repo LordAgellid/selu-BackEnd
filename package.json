@@ -3,15 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "engines": {
-    "node": "12.x"
-  },
   "scripts": {
     "lint": "npx eslint *.js",
     "fix": "eslint --fix --ext .js,.jsx .",
     "test": "jest",
-    "start": "node app.js",
-    "serve": "nodemon app.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -20,13 +16,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "bugs": {
+    "url": "https://gitlab.com/projet-3-equipe-5/backend/issues"
+  },
+  "homepage": "https://gitlab.com/projet-3-equipe-5/backend#readme",
+  "dependencies": {
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "eslint": "^8.25.0",
-    "express": "^4.18.1",
+    "express": "^4.18.2",
     "jest": "^29.1.2",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.3.0",
