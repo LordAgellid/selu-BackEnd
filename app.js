@@ -22,11 +22,16 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send('API de Selu')
+})
+
 app.use('/utilisateurs', utilisateursRouter);
 app.use('/codeVerificaion', codeVerificationRouter);
 app.use('/profile', profileRouter);
-app.use('/connexion',connexion);
+
+app.use('/connexion', connexion);
 
 app.listen(PORT, () => {
-    console.log(`Mon application roule sur http://localhost:${PORT}\n`);
+    console.log(`Mon application roule sur -> http://localhost:${PORT}\n`);
 });
