@@ -5,14 +5,14 @@ const knex = knexModule(chaineConnexion);
 
 function modifierProfile(courriel, photoDeProfil, nomDeFamille, prenom) {
     return knex('Utilisateurs')
-    .where({
-        Courriel: courriel 
-    })
-    .update({
-        NomDeFamille: nomDeFamille,
-        Prenom: prenom,
-        PhotoDeProfil: photoDeProfil
-    })
+        .where({
+            Courriel: courriel
+        })
+        .update({
+            NomDeFamille: nomDeFamille,
+            Prenom: prenom,
+            PhotoDeProfil: photoDeProfil
+        })
 }
 
 function getProfileByMail(courriel) {

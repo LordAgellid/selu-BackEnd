@@ -15,25 +15,23 @@ const utilisateursRouter = require('./routes/utilisateurs');
 const connexion = require('./routes/connexion')
 //const profileRouter = require('./routes/profile');
 const codeVerificationRouter = require('./routes/codeVerification');
-const profileRouter = require('./routes/profile');
+const profilRouter = require('./routes/profil');
 
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send('API de Selu')
+})
+
 app.use('/utilisateurs', utilisateursRouter);
-app.use('/codeVerificaion', codeVerificationRouter);
-app.use('/profile', profileRouter);
-app.use('/connexion',connexion);
+app.use('/code-verification', codeVerificationRouter);
+app.use('/profil', profilRouter);
 
-// const sslServer = https.createServer({
-//     key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
-//     cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem'))
-// }, app)
-
-// sslServer.listen(PORT, () => console.log(`Mon application roule sur https://localhost:${PORT}`));
+app.use('/connexion', connexion);
 
 app.listen(PORT, () => {
-    console.log(`Mon application roule sur http://localhost:${PORT}`);
+    console.log(`Mon application roule sur -> http://localhost:${PORT}\n`);
 });
