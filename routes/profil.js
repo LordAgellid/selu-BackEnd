@@ -4,22 +4,6 @@ const requestProfile = require('../database/profile');
 
 const router = express.Router();
 
-// //Multer :)
-// const multer = require('multer');
-
-// const path = require('path');
-
-// var storage = multer.diskStorage({
-//     destination: function(req, file, cb) {
-//     cb(null, path.join(__dirname, '../uploads'));
-//     },
-//     filename: function (req, file, cb) {
-//     console.log(file);
-//     cb(null ,file.originalname);
-//     }
-// });
-// const upload = multer({storage: storage});
-
 router.post('/modifier-profil', async (req, res) => {
   const { Prenom } = req.body;
   const { NomDeFamille } = req.body;
@@ -43,8 +27,6 @@ router.post('/modifier-profil', async (req, res) => {
     })
   }
 });
-
-router.use('/getFile', express.static('uploads'));
 
 router.get('/:email', async (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
