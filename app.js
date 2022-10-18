@@ -16,6 +16,8 @@ const connexion = require('./routes/connexion')
 //const profileRouter = require('./routes/profile');
 const codeVerificationRouter = require('./routes/codeVerification');
 const profilRouter = require('./routes/profil');
+const articleLivreRouter = require('./routes/articleLivres');
+const articleFavorisRouter = require('./routes/articleFavoris');
 
 
 app.use(cors());
@@ -29,7 +31,8 @@ app.get('/', (req, res) => {
 app.use('/utilisateurs', utilisateursRouter);
 app.use('/code-verification', codeVerificationRouter);
 app.use('/profil', profilRouter);
-
+app.use('/articles/livres', articleLivreRouter);
+app.use('/articles/favoris', articleFavorisRouter);
 app.use('/connexion', connexion);
 
 app.listen(PORT, () => {
