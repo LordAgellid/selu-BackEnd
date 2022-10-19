@@ -38,7 +38,7 @@ router.get('/:email', async (req, res) => {
     res.status(500).json(error.message);
   }
 
-  return res.status(200).json(resultat);
+  return res.status(200).json(resultat[0]);
 });
 
 module.exports = router;
